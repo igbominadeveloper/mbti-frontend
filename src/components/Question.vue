@@ -1,6 +1,6 @@
 <template>
   <div class="question" :class="{ error }">
-    <p class="question-text">
+    <p class="question-text" :class="{ loader: questionsAreStillLoading }">
       {{ question.question }}
     </p>
     <div class="decisions">
@@ -31,7 +31,7 @@
 <script lang="ts">
 import Vue, { PropType } from "vue";
 
-import { Perspective } from "@/types";
+import { Perspective, RequestStatus, Status } from "@/types";
 
 type Data = {
   clickedOption: string | number;
@@ -51,6 +51,15 @@ export default Vue.extend({
     error: {
       type: Boolean,
       default: false
+    },
+    requestStatus: {
+      type: Object as PropType<RequestStatus>,
+      required: true
+    }
+  },
+  computed: {
+    questionsAreStillLoading(): boolean {
+      return this.requestStatus.getQuestions === Status.LOADING;
     }
   },
   methods: {
@@ -94,10 +103,54 @@ export default Vue.extend({
   justify-content: space-between;
 }
 
-.question-text {
+.question-text,
+.email-text {
   font-size: 1.4rem;
   font-style: normal;
   font-weight: bold;
+}
+
+.question-text {
+  position: relative;
+  width: 100%;
+  height: 2rem;
+  text-align: center;
+}
+
+.loader {
+  position: relative;
+  width: 100%;
+  height: 2rem;
+}
+
+.loader::before {
+  position: absolute;
+  content: "";
+  left: 0;
+
+  height: 100%;
+  width: 100%;
+
+  background-image: linear-gradient(
+    to right,
+    #d9d9d9 0%,
+    rgba(0, 0, 0, 0.05) 20%,
+    #d9d9d9 40%,
+    #d9d9d9 100%
+  );
+  background-repeat: no-repeat;
+  background-size: 100%, 1rem;
+
+  animation: shimmer 2s linear infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -450px 0;
+  }
+  100% {
+    background-position: 450px 0;
+  }
 }
 
 .decisions {

@@ -17,7 +17,79 @@ export enum QuestionID {
   "JP-3" = "JP-3"
 }
 
+export const dummyQuestions = [
+  {
+    question: "",
+    decision: 0,
+    id: QuestionID["EI-1"]
+  },
+  {
+    question: "",
+    decision: 0,
+    id: QuestionID["SN-1"]
+  },
+  {
+    question: "",
+    decision: 0,
+    id: QuestionID["TF-1"]
+  },
+  {
+    question: "",
+    decision: 0,
+    id: QuestionID["EI-2"]
+  },
+  {
+    question: "",
+    decision: 0,
+    id: QuestionID["SN-2"]
+  },
+  {
+    question: "",
+    decision: 0,
+    id: QuestionID["JP-1"]
+  },
+  {
+    question: "",
+    decision: 0,
+    id: QuestionID["TF-2"]
+  },
+  {
+    question: "",
+    decision: 0,
+    id: QuestionID["JP-2"]
+  },
+  {
+    question: "",
+    decision: 0,
+    id: QuestionID["EI-3"]
+  },
+  {
+    question: "",
+    decision: 0,
+    id: QuestionID["JP-3"]
+  }
+];
+
 export type UserDecision = {
   decision: number;
   questionId: QuestionID;
+};
+
+export type Question = {
+  id: string;
+  question: string;
+  shortcode: string;
+  created_at: string;
+  updated_at: string;
+};
+
+export enum Status {
+  SUCCESS = "SUCCESS",
+  LOADING = "LOADING",
+  NORMAL = "NORMAL",
+  ERROR = "ERROR"
+}
+
+export type RequestStatus = {
+  getQuestions: Status;
 };
