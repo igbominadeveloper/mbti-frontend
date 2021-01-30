@@ -1,5 +1,5 @@
 <template>
-  <section class="page-container">
+  <div>
     <p class="title">Discover your Perspective</p>
     <p class="subtitle">
       Complete the 7 min test and get a detailed report of your lenses on the
@@ -32,7 +32,7 @@
 
       <button class="submit" @click="submitForm">Save & Continue</button>
     </div>
-  </section>
+  </div>
 </template>
 
 <script lang="ts">
@@ -159,7 +159,7 @@ export default Vue.extend({
 
         this.requestStatus.getQuestions = Status.SUCCESS;
       })
-      .catch(error => {
+      .catch((error: string) => {
         this.requestStatus.getQuestions = Status.ERROR;
         console.log(error);
       });
@@ -168,31 +168,27 @@ export default Vue.extend({
 </script>
 
 <style lang="css">
-.page-container {
-  width: 100%;
-
-  padding: 35px 75px;
-}
-
 .title {
-  font-size: 1.6rem;
+  font-size: var(--font-title);
   color: var(--color-blue);
   font-style: normal;
   font-weight: 600;
   line-height: 2rem;
 
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   padding: 0;
 }
 
 .subtitle {
   color: var(--color-black);
-  font-size: 1.3rem;
+  font-size: 1.4rem;
+
+  font-weight: 600;
 }
 
 .questions {
   width: 100%;
-  margin: 3rem auto;
+  margin: 5rem auto;
 
   display: flex;
   flex-direction: column;
@@ -200,7 +196,7 @@ export default Vue.extend({
 
 @media screen and (min-width: 992px) {
   .questions {
-    width: 50%;
+    width: 60%;
   }
 }
 </style>

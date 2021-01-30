@@ -93,3 +93,10 @@ export enum Status {
 export type RequestStatus = {
   getQuestions: Status;
 };
+
+export type Result = {
+  ei: number;
+  si: number;
+  tf: number;
+  jp: number;
+};

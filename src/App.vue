@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <router-view />
+    <div class="page-container">
+      <router-view />
+    </div>
   </div>
 </template>
 
@@ -15,6 +17,8 @@
   --color-grey: #e5e5e5;
   --color-white: #ffffff;
   --box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.1);
+  --font-title: 2.2rem;
+  --font-sub-title: 1.6rem;
 }
 
 html {
@@ -42,6 +46,12 @@ body {
 
   font-family: Roboto;
   --webkit-font-smoothing: antialiased;
+}
+
+.page-container {
+  width: 100%;
+
+  padding: 8rem 10rem;
 }
 
 .error {
