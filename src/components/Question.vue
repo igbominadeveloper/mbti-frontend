@@ -105,7 +105,7 @@ export default Vue.extend({
 
 .question-text,
 .email-text {
-  font-size: 1.4rem;
+  font-size: var(--font-sub-title);
   font-style: normal;
   font-weight: bold;
 }
@@ -114,7 +114,9 @@ export default Vue.extend({
   position: relative;
   width: 100%;
   height: 2rem;
+
   text-align: center;
+  letter-spacing: 0.4px;
 }
 
 .loader {
@@ -183,6 +185,10 @@ export default Vue.extend({
   margin-bottom: 0.3rem;
 }
 
+.agree,
+.disagree {
+  font-size: var(--font-sub-title);
+}
 .disagree {
   margin-right: 1rem;
 
