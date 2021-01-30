@@ -12,10 +12,11 @@
         :key="question.id"
         :question="question"
         :error="errors[question.id]"
+        :requestStatus="requestStatus"
         @user-decided="setDecision"
       />
       <div class="question">
-        <p class="question-text">
+        <p class="email-text">
           Your Email
         </p>
 
@@ -39,25 +40,33 @@ import Vue from "vue";
 
 import Question from "@/components/Question.vue";
 
-import { Perspective, QuestionID, UserDecision } from "@/types";
+import {
+  dummyQuestions,
+  Perspective,
+  Question as QuestionResponse,
+  RequestStatus,
+  Status,
+  UserDecision
+} from "@/types";
 
 type Errors = {
   email: boolean;
   "EI-1": boolean;
-  "SN-1": boolean;
-  "TF-1": boolean;
   "EI-2": boolean;
-  "SN-2": boolean;
-  "JP-1": boolean;
-  "TF-2": boolean;
-  "JP-2": boolean;
   "EI-3": boolean;
+  "SN-1": boolean;
+  "SN-2": boolean;
+  "TF-1": boolean;
+  "TF-2": boolean;
+  "JP-1": boolean;
+  "JP-2": boolean;
   "JP-3": boolean;
 };
 type Data = {
   questions: Array<Perspective>;
   email: string;
   errors: Errors;
+  requestStatus: RequestStatus;
 };
 
 export default Vue.extend({
@@ -66,65 +75,7 @@ export default Vue.extend({
   components: { Question },
 
   data: (): Data => ({
-    questions: [
-      {
-        question:
-          "You find it takes effort to introduce yourself to other people.",
-        decision: 5,
-        id: QuestionID["EI-1"]
-      },
-      {
-        question: "You consider yourself more practical than creative",
-        decision: 0,
-        id: QuestionID["SN-1"]
-      },
-      {
-        question:
-          "Winning a debate matters less to you than making sure no one gets upset",
-        decision: 0,
-        id: QuestionID["TF-1"]
-      },
-      {
-        question:
-          "You get energized going to social events that involve many interactions.",
-        decision: 0,
-        id: QuestionID["EI-2"]
-      },
-      {
-        question:
-          "You often spend time exploring unrealistic and impractical yet intriguing ideas.",
-        decision: 0,
-        id: QuestionID["SN-2"]
-      },
-      {
-        question:
-          "Deadlines seem to you to be of relative rather than absolute importance.",
-        decision: 0,
-        id: QuestionID["JP-1"]
-      },
-      {
-        question:
-          "Logic is usually more important than heart when it comes to making important decisions.",
-        decision: 0,
-        id: QuestionID["TF-2"]
-      },
-      {
-        question: "Your home and work environments are quite tidy.",
-        decision: 0,
-        id: QuestionID["JP-2"]
-      },
-      {
-        question: "You do not mind being at the center of attention.",
-        decision: 0,
-        id: QuestionID["EI-3"]
-      },
-      {
-        question:
-          "Keeping your options open is more important than having a to-do list.",
-        decision: 0,
-        id: QuestionID["JP-3"]
-      }
-    ],
+    questions: dummyQuestions,
     email: "",
     errors: {
       email: false,
@@ -138,6 +89,9 @@ export default Vue.extend({
       "JP-2": false,
       "EI-3": false,
       "JP-3": false
+    },
+    requestStatus: {
+      getQuestions: Status.NORMAL
     }
   }),
 
@@ -185,6 +139,30 @@ export default Vue.extend({
     submitForm() {
       this.validateForm();
     }
+  },
+  created() {
+    const apiUrl = process.env.VUE_APP_API_URL;
+    // make API call
+
+    this.requestStatus.getQuestions = Status.LOADING;
+
+    fetch(`${apiUrl}/questions`)
+      .then(response => response.json())
+      .then(response => {
+        this.questions = response.questions.map(
+          (question: QuestionResponse) => ({
+            question: question.question,
+            decision: 0,
+            id: question.shortcode
+          })
+        );
+
+        this.requestStatus.getQuestions = Status.SUCCESS;
+      })
+      .catch(error => {
+        this.requestStatus.getQuestions = Status.ERROR;
+        console.log(error);
+      });
   }
 });
 </script>
