@@ -96,7 +96,7 @@ export default Vue.extend({
   box-sizing: border-box;
   border-radius: 4px;
 
-  height: 13rem;
+  height: 16rem;
   padding: 2rem 0;
 
   display: flex;

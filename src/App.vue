@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <Menu />
     <div class="page-container">
       <transition name="slide-left-fade" mode="out-in">
         <router-view />
@@ -7,6 +8,16 @@
     </div>
   </div>
 </template>
+
+<script lang="ts">
+import Vue from "vue";
+
+import Menu from "@/components/Menu.vue";
+
+export default Vue.extend({
+  components: { Menu }
+});
+</script>
 
 <style lang="css">
 :root {
@@ -87,6 +98,10 @@ body {
   .questions {
     width: 60%;
   }
+
+  .email-input {
+    width: 60%;
+  }
 }
 
 .email-error {
@@ -112,14 +127,8 @@ body {
 
   width: 80%;
 
-  padding: 0.6rem 1.5rem;
+  padding: 1rem 1.5rem;
   margin-bottom: 0.1rem;
-}
-
-@media screen and (min-width: 992px) {
-  .email-input {
-    width: 50%;
-  }
 }
 
 input:focus,
