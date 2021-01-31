@@ -73,15 +73,16 @@ export default Vue.extend({
 
 <style>
 .results {
-  height: 25rem;
-
-  padding: 0 3rem;
-  margin: 0 auto;
+  height: 40rem;
   max-width: 90%;
 
+  margin: 0 auto;
+  padding: 2rem 0;
+
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  justify-content: space-between;
 
   border: 1px solid var(--color-grey);
   border-radius: 4px;
@@ -109,6 +110,8 @@ export default Vue.extend({
 
 .breakdown {
   width: 48rem;
+
+  margin-top: 10rem;
 }
 
 .result-row {
@@ -161,5 +164,20 @@ export default Vue.extend({
 
 .chosen {
   background: var(--color-purple);
+}
+
+@media screen and (min-width: 1024px) {
+  .results {
+    height: 25rem;
+
+    flex-direction: row;
+    justify-content: space-between;
+
+    padding: 0 3rem;
+  }
+
+  .breakdown {
+    margin-top: 0;
+  }
 }
 </style>
