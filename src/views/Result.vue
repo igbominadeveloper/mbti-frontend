@@ -3,7 +3,7 @@
     <div class="description">
       <p class="title">Your Perspective</p>
       <p class="result">
-        Your Perspective Type is <span class="mbti">ENTJ</span>
+        Your Perspective Type is <span class="mbti">{{ mbti }}</span>
       </p>
     </div>
 
@@ -20,8 +20,8 @@
       <div class="result-row">
         <div class="result-text">Sensing (S)</div>
         <div class="bar">
-          <div class="left" :class="{ chosen: siIsLeft }"></div>
-          <div class="right" :class="{ chosen: !siIsLeft }"></div>
+          <div class="left" :class="{ chosen: snIsLeft }"></div>
+          <div class="right" :class="{ chosen: !snIsLeft }"></div>
         </div>
         <div class="result-text">Intuition (I)</div>
       </div>
@@ -50,34 +50,22 @@
 <script lang="ts">
 import Vue from "vue";
 
-import { Result } from "@/types";
-
-type Data = {
-  result: Result;
-};
-
 export default Vue.extend({
-  data: (): Data => ({
-    result: {
-      ei: 1,
-      si: -1,
-      tf: 1,
-      jp: -1
-    }
-  }),
-
   computed: {
-    eiIsLeft(): boolean {
-      return this.result.ei === -1;
+    mbti(): string {
+      return localStorage.getItem("mbti") || "";
     },
-    siIsLeft(): boolean {
-      return this.result.si === -1;
+    eiIsLeft(): boolean {
+      return this.mbti.charAt(0) === "I";
+    },
+    snIsLeft(): boolean {
+      return this.mbti.charAt(1) === "S";
     },
     tfIsLeft(): boolean {
-      return this.result.tf === -1;
+      return this.mbti.charAt(2) === "T";
     },
     jpIsLeft(): boolean {
-      return this.result.jp === -1;
+      return this.mbti.charAt(3) === "J";
     }
   }
 });

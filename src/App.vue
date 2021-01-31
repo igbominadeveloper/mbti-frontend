@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <div class="page-container">
-      <router-view />
+      <transition name="slide-left-fade" mode="out-in">
+        <router-view />
+      </transition>
     </div>
   </div>
 </template>
@@ -56,5 +58,20 @@ body {
 
 .error {
   border: 1.5px solid var(--color-red);
+}
+
+.slide-left-fade-enter {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+.slide-left-fade-enter-active,
+.slide-left-fade-leave-active {
+  transition: all 0.3s ease;
+}
+
+.slide-left-fade-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
 }
 </style>
