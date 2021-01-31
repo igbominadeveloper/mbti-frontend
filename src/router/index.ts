@@ -7,12 +7,12 @@ const routes: Array<RouteConfig> = [
   {
     path: "/",
     name: "Home",
-    component: () => import("../views/Home.vue")
+    component: () => import("@/views/Home.vue")
   },
   {
     path: "/result",
     name: "Result",
-    component: () => import("../views/Result.vue"),
+    component: () => import("@/views/Result.vue"),
     beforeEnter(_to: object, _from: object, next: Function) {
       const mbti = localStorage.getItem("mbti") || "";
 
@@ -20,6 +20,11 @@ const routes: Array<RouteConfig> = [
 
       return next();
     }
+  },
+  {
+    path: "/check-result",
+    name: "CheckResult",
+    component: () => import("@/views/CheckResult.vue")
   }
 ];
 

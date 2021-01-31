@@ -33,16 +33,9 @@
         </transition>
       </div>
 
-      <button
-        class="submit"
-        @click="submitForm"
-        :disabled="responseIsBeingProcessed"
+      <BaseButton @click="submitForm" :loading="responseIsBeingProcessed"
+        >Save & Continue</BaseButton
       >
-        Save & Continue
-        <span v-if="responseIsBeingProcessed"
-          ><img class="loading-image" src="@/assets/ball-triangle.svg" />
-        </span>
-      </button>
     </div>
   </div>
 </template>
@@ -51,6 +44,7 @@
 import Vue from "vue";
 
 import Question from "@/components/Question.vue";
+import BaseButton from "@/components/BaseButton.vue";
 
 import { getQuestions, submitResponse } from "@/services";
 
@@ -88,7 +82,7 @@ type Data = {
 export default Vue.extend({
   name: "Home",
 
-  components: { Question },
+  components: { Question, BaseButton },
 
   data: (): Data => ({
     questions: dummyQuestions,
@@ -108,7 +102,8 @@ export default Vue.extend({
     },
     requestStatus: {
       getQuestions: Status.NORMAL,
-      submitResponse: Status.NORMAL
+      submitResponse: Status.NORMAL,
+      getUserMbti: Status.NORMAL
     }
   }),
 
@@ -254,73 +249,3 @@ export default Vue.extend({
   }
 });
 </script>
-
-<style lang="css">
-.title {
-  font-size: var(--font-title);
-  color: var(--color-blue);
-  font-style: normal;
-  font-weight: 600;
-  line-height: 2rem;
-
-  margin-bottom: 1.5rem;
-  padding: 0;
-}
-
-.subtitle {
-  color: var(--color-black);
-  font-size: 1.4rem;
-
-  font-weight: 600;
-}
-
-.questions {
-  width: 100%;
-  margin: 5rem auto;
-
-  display: flex;
-  flex-direction: column;
-}
-
-@media screen and (min-width: 992px) {
-  .questions {
-    width: 60%;
-  }
-}
-
-.email-error {
-  color: var(--color-red);
-  font-size: 1.3rem;
-}
-
-.submit {
-  background: var(--color-light-blue);
-  color: var(--color-white);
-  border-radius: 4px;
-
-  padding: 0.7rem 1.5rem;
-  margin: 5rem 0;
-
-  width: 17rem;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  align-self: center;
-
-  border: none;
-  outline: none;
-  cursor: pointer;
-}
-
-.submit:disabled {
-  cursor: not-allowed;
-}
-
-.loading-image {
-  height: 1.5rem;
-  width: 2rem;
-
-  /* margin-left: 0.2rem; */
-}
-</style>

@@ -105,8 +105,7 @@ export default Vue.extend({
   justify-content: space-between;
 }
 
-.question-text,
-.email-text {
+.question-text {
   font-size: var(--font-sub-title);
   font-style: normal;
   font-weight: bold;
@@ -201,53 +200,5 @@ export default Vue.extend({
   margin-left: 1rem;
 
   color: var(--color-green);
-}
-
-.email-input {
-  background: var(--color-white);
-  box-sizing: border-box;
-  outline: none;
-
-  border: 1.3px solid #aaaaaa;
-  border-radius: 4px;
-
-  width: 80%;
-
-  padding: 0.6rem 1.5rem;
-  margin-bottom: 0.1rem;
-}
-
-@media screen and (min-width: 992px) {
-  .email-input {
-    width: 50%;
-  }
-}
-
-input:focus,
-input:active {
-  box-shadow: var(--box-shadow);
-}
-
-input::placeholder {
-  color: var(--color-grey);
-}
-
-input.error {
-  border: 1.5px solid var(--color-red);
-}
-
-.error-block {
-  color: var(--color-white);
-  opacity: 0.7;
-  background: var(--color-purple);
-  border-radius: 4px;
-
-  position: absolute;
-  right: -30rem;
-  top: 4rem;
-
-  font-size: 12px;
-
-  padding: 10px;
 }
 </style>

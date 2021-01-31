@@ -74,4 +74,96 @@ body {
   opacity: 0;
   transform: translateX(30px);
 }
+
+.questions {
+  width: 100%;
+  margin: 5rem auto;
+
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (min-width: 992px) {
+  .questions {
+    width: 60%;
+  }
+}
+
+.email-error {
+  color: var(--color-red);
+  font-size: 1.3rem;
+
+  height: 1rem;
+}
+
+.email-text {
+  font-size: var(--font-sub-title);
+  font-style: normal;
+  font-weight: bold;
+}
+
+.email-input {
+  background: var(--color-white);
+  box-sizing: border-box;
+  outline: none;
+
+  border: 1.3px solid #aaaaaa;
+  border-radius: 4px;
+
+  width: 80%;
+
+  padding: 0.6rem 1.5rem;
+  margin-bottom: 0.1rem;
+}
+
+@media screen and (min-width: 992px) {
+  .email-input {
+    width: 50%;
+  }
+}
+
+input:focus,
+input:active {
+  box-shadow: var(--box-shadow);
+}
+
+input::placeholder {
+  color: var(--color-grey);
+}
+
+input.error {
+  border: 1.5px solid var(--color-red);
+}
+
+.error-block {
+  color: var(--color-white);
+  opacity: 0.7;
+  background: var(--color-purple);
+  border-radius: 4px;
+
+  position: absolute;
+  right: -30rem;
+  top: 4rem;
+
+  font-size: 12px;
+
+  padding: 10px;
+}
+.title {
+  font-size: var(--font-title);
+  color: var(--color-blue);
+  font-style: normal;
+  font-weight: 600;
+  line-height: 2rem;
+
+  margin-bottom: 1.5rem;
+  padding: 0;
+}
+
+.subtitle {
+  color: var(--color-black);
+  font-size: 1.4rem;
+
+  font-weight: 600;
+}
 </style>
