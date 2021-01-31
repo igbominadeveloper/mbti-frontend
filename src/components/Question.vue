@@ -22,9 +22,11 @@
       <p class="agree">Agree</p>
     </div>
 
-    <div class="error-block" v-if="error">
-      Please choose from one of the options
-    </div>
+    <transition name="slide-left-fade">
+      <div class="error-block" v-if="error">
+        Please choose from one of the options
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -81,7 +83,7 @@ export default Vue.extend({
 .clicked {
   background: var(--color-purple);
 
-  transition: all 1s 0s ease-in-out;
+  transition: all 0.6s 0s ease-in-out;
 }
 
 .question {
@@ -94,7 +96,7 @@ export default Vue.extend({
   box-sizing: border-box;
   border-radius: 4px;
 
-  height: 12rem;
+  height: 13rem;
   padding: 2rem 0;
 
   display: flex;
@@ -232,22 +234,6 @@ input::placeholder {
 
 input.error {
   border: 1.5px solid var(--color-red);
-}
-
-.submit {
-  background: var(--color-light-blue);
-  color: var(--color-white);
-  border-radius: 4px;
-
-  padding: 0.7rem 1.5rem;
-  margin: 5rem 0;
-
-  width: 15rem;
-
-  align-self: center;
-  border: none;
-  outline: none;
-  cursor: pointer;
 }
 
 .error-block {

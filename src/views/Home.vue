@@ -21,16 +21,28 @@
         </p>
 
         <input
-          type="text"
-          :class="{ error: emailIsEmpty }"
+          type="email"
+          :class="{ error: emailHasError }"
           class="email-input"
           placeholder="you@example.com"
           required
           v-model="email"
         />
+        <transition name="slide-left-fade">
+          <p class="email-error">{{ errors["email"] }}</p>
+        </transition>
       </div>
 
-      <button class="submit" @click="submitForm">Save & Continue</button>
+      <button
+        class="submit"
+        @click="submitForm"
+        :disabled="responseIsBeingProcessed"
+      >
+        Save & Continue
+        <span v-if="responseIsBeingProcessed"
+          ><img class="loading-image" src="@/assets/ball-triangle.svg" />
+        </span>
+      </button>
     </div>
   </div>
 </template>
@@ -40,27 +52,31 @@ import Vue from "vue";
 
 import Question from "@/components/Question.vue";
 
+import { getQuestions, submitResponse } from "@/services";
+
 import {
   dummyQuestions,
   Perspective,
   Question as QuestionResponse,
+  QuestionID,
   RequestStatus,
   Status,
-  UserDecision
+  UserDecision,
+  UserResponseObject
 } from "@/types";
 
 type Errors = {
-  email: boolean;
-  "EI-1": boolean;
-  "EI-2": boolean;
-  "EI-3": boolean;
-  "SN-1": boolean;
-  "SN-2": boolean;
-  "TF-1": boolean;
-  "TF-2": boolean;
-  "JP-1": boolean;
-  "JP-2": boolean;
-  "JP-3": boolean;
+  email: string;
+  "ei-1": boolean;
+  "ei-2": boolean;
+  "ei-3": boolean;
+  "sn-1": boolean;
+  "sn-2": boolean;
+  "tf-1": boolean;
+  "tf-2": boolean;
+  "jp-1": boolean;
+  "jp-2": boolean;
+  "jp-3": boolean;
 };
 type Data = {
   questions: Array<Perspective>;
@@ -78,26 +94,49 @@ export default Vue.extend({
     questions: dummyQuestions,
     email: "",
     errors: {
-      email: false,
-      "EI-1": false,
-      "SN-1": false,
-      "TF-1": false,
-      "EI-2": false,
-      "SN-2": false,
-      "JP-1": false,
-      "TF-2": false,
-      "JP-2": false,
-      "EI-3": false,
-      "JP-3": false
+      email: "",
+      "ei-1": false,
+      "sn-1": false,
+      "tf-1": false,
+      "ei-2": false,
+      "sn-2": false,
+      "jp-1": false,
+      "tf-2": false,
+      "jp-2": false,
+      "ei-3": false,
+      "jp-3": false
     },
     requestStatus: {
-      getQuestions: Status.NORMAL
+      getQuestions: Status.NORMAL,
+      submitResponse: Status.NORMAL
     }
   }),
 
   computed: {
-    emailIsEmpty() {
-      return this.errors.email;
+    emailHasError(): boolean {
+      return this.errors.email.length > 0;
+    },
+
+    isEmail(): boolean {
+      const emailRegex = /\S+@\S+\.\S+/;
+      const valid = this.email.trim().match(emailRegex);
+      return valid ? true : false;
+    },
+
+    thereAreNoErrors(): boolean {
+      const responseErrors = { ...this.errors };
+      delete responseErrors.email;
+
+      return (
+        !this.emailHasError &&
+        !Object.values(responseErrors).some(
+          (value: boolean | string) => value == true
+        )
+      );
+    },
+
+    responseIsBeingProcessed(): boolean {
+      return this.requestStatus.submitResponse === Status.LOADING;
     }
   },
   methods: {
@@ -114,17 +153,13 @@ export default Vue.extend({
       });
     },
 
-    isEmail(emailInput: string): boolean {
-      const emailRegex = /\S+@\S+\.\S+/;
-      const valid = emailInput.trim().match(emailRegex);
-      return valid ? true : false;
-    },
-
     validateForm() {
       if (!this.email) {
-        this.errors.email = true;
+        this.errors.email = "Please provide your email";
+      } else if (!this.isEmail) {
+        this.errors.email = "Please provide a valid email";
       } else {
-        this.errors.email = false;
+        this.errors.email = "";
       }
 
       this.questions.forEach((question: Perspective) => {
@@ -136,17 +171,70 @@ export default Vue.extend({
       });
     },
 
+    prepareFormForSubmission(): UserResponseObject {
+      const ei1 = this.getValue(QuestionID["ei-1"]);
+      const sn1 = this.getValue(QuestionID["sn-1"]);
+      const tf1 = this.getValue(QuestionID["tf-1"]);
+      const ei2 = this.getValue(QuestionID["ei-2"]);
+      const sn2 = this.getValue(QuestionID["sn-2"]);
+      const jp1 = this.getValue(QuestionID["jp-1"]);
+      const tf2 = this.getValue(QuestionID["tf-2"]);
+      const jp2 = this.getValue(QuestionID["jp-2"]);
+      const ei3 = this.getValue(QuestionID["ei-3"]);
+      const jp3 = this.getValue(QuestionID["jp-3"]);
+
+      return {
+        "ei-1": ei1,
+        "sn-1": sn1,
+        "tf-1": tf1,
+        "ei-2": ei2,
+        "sn-2": sn2,
+        "jp-1": jp1,
+        "tf-2": tf2,
+        "jp-2": jp2,
+        "ei-3": ei3,
+        "jp-3": jp3,
+        email: this.email
+      };
+    },
+
+    getValue(field: QuestionID): number {
+      const object = this.questions.find(
+        (question: Perspective) => question.id === field
+      );
+      if (object) return object.decision;
+      return 0;
+    },
+
     submitForm() {
       this.validateForm();
+
+      if (this.thereAreNoErrors) {
+        this.requestStatus.submitResponse = Status.LOADING;
+        const userResponse: UserResponseObject = this.prepareFormForSubmission();
+
+        submitResponse(userResponse)
+          .then(response => response.json())
+          .then(response => {
+            localStorage.setItem("mbti", response.mbti);
+
+            this.requestStatus.submitResponse = Status.LOADING;
+
+            this.$router.push({
+              name: "Result"
+            });
+          })
+          .catch((error: string) => {
+            this.requestStatus.submitResponse = Status.ERROR;
+            console.log(error);
+          });
+      }
     }
   },
   created() {
-    const apiUrl = process.env.VUE_APP_API_URL;
-    // make API call
-
     this.requestStatus.getQuestions = Status.LOADING;
 
-    fetch(`${apiUrl}/questions`)
+    getQuestions()
       .then(response => response.json())
       .then(response => {
         this.questions = response.questions.map(
@@ -198,5 +286,41 @@ export default Vue.extend({
   .questions {
     width: 60%;
   }
+}
+
+.email-error {
+  color: var(--color-red);
+  font-size: 1.3rem;
+}
+
+.submit {
+  background: var(--color-light-blue);
+  color: var(--color-white);
+  border-radius: 4px;
+
+  padding: 0.7rem 1.5rem;
+  margin: 5rem 0;
+
+  width: 17rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  align-self: center;
+
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.submit:disabled {
+  cursor: not-allowed;
+}
+
+.loading-image {
+  height: 1.5rem;
+  width: 2rem;
+
+  /* margin-left: 0.2rem; */
 }
 </style>

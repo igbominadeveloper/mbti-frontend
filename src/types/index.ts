@@ -5,68 +5,68 @@ export type Perspective = {
 };
 
 export enum QuestionID {
-  "EI-1" = "EI-1",
-  "SN-1" = "SN-1",
-  "TF-1" = "TF-1",
-  "EI-2" = "EI-2",
-  "SN-2" = "SN-2",
-  "JP-1" = "JP-1",
-  "TF-2" = "TF-2",
-  "JP-2" = "JP-2",
-  "EI-3" = "EI-3",
-  "JP-3" = "JP-3"
+  "ei-1" = "ei-1",
+  "sn-1" = "sn-1",
+  "tf-1" = "tf-1",
+  "ei-2" = "ei-2",
+  "sn-2" = "sn-2",
+  "jp-1" = "jp-1",
+  "tf-2" = "tf-2",
+  "jp-2" = "jp-2",
+  "ei-3" = "ei-3",
+  "jp-3" = "jp-3"
 }
 
 export const dummyQuestions = [
   {
     question: "",
     decision: 0,
-    id: QuestionID["EI-1"]
+    id: QuestionID["ei-1"]
   },
   {
     question: "",
     decision: 0,
-    id: QuestionID["SN-1"]
+    id: QuestionID["sn-1"]
   },
   {
     question: "",
     decision: 0,
-    id: QuestionID["TF-1"]
+    id: QuestionID["tf-1"]
   },
   {
     question: "",
     decision: 0,
-    id: QuestionID["EI-2"]
+    id: QuestionID["ei-2"]
   },
   {
     question: "",
     decision: 0,
-    id: QuestionID["SN-2"]
+    id: QuestionID["sn-2"]
   },
   {
     question: "",
     decision: 0,
-    id: QuestionID["JP-1"]
+    id: QuestionID["jp-1"]
   },
   {
     question: "",
     decision: 0,
-    id: QuestionID["TF-2"]
+    id: QuestionID["tf-2"]
   },
   {
     question: "",
     decision: 0,
-    id: QuestionID["JP-2"]
+    id: QuestionID["jp-2"]
   },
   {
     question: "",
     decision: 0,
-    id: QuestionID["EI-3"]
+    id: QuestionID["ei-3"]
   },
   {
     question: "",
     decision: 0,
-    id: QuestionID["JP-3"]
+    id: QuestionID["jp-3"]
   }
 ];
 
@@ -92,11 +92,23 @@ export enum Status {
 
 export type RequestStatus = {
   getQuestions: Status;
+  submitResponse: Status;
 };
 
-export type Result = {
-  ei: number;
-  si: number;
-  tf: number;
-  jp: number;
+export type UserResponseObject = {
+  "ei-1": number;
+  "sn-1": number;
+  "tf-1": number;
+  "ei-2": number;
+  "sn-2": number;
+  "jp-1": number;
+  "tf-2": number;
+  "jp-2": number;
+  "ei-3": number;
+  "jp-3": number;
+  email: string;
+};
+
+export type ResponseRecord = {
+  mbti: string;
 };
