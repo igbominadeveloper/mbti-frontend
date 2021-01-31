@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p class="title">Check User MBTI</p>
+    <p class="title">Check MBTI</p>
     <div class="questions result-check">
       <div class="question">
         <p class="email-text">
