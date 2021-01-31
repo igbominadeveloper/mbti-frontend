@@ -93,6 +93,7 @@ export enum Status {
 export type RequestStatus = {
   getQuestions: Status;
   submitResponse: Status;
+  getUserMbti: Status;
 };
 
 export type UserResponseObject = {

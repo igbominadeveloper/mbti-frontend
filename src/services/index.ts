@@ -15,3 +15,12 @@ export const submitResponse = (
     },
     body: JSON.stringify(response)
   });
+
+export const getUserMbti = (email: string): Promise<Response> =>
+  fetch(`${apiUrl}/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ email })
+  });
