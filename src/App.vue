@@ -185,7 +185,7 @@ input.error {
 
 @media screen and (min-width: 1024px) {
   .questions {
-    width: 60%;
+    width: 69%;
     padding: 0 1rem;
   }
 
