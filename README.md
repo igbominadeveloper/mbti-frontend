@@ -11,7 +11,18 @@ The Project is managed using [Pivotal Tracker](https://www.pivotaltracker.com/n/
 
 <img src="./src/assets/pt-board.jpg" height="50px" style="display: block; margin-bottom: 1rem;" />
 
-## Project setup
+## Project setup with Docker
+
+```
+clone the repository
+```
+
+Run the Docker build command
+```
+docker build -t mbti-frontend .
+```
+
+## Project setup without Docker
 ```
 yarn install
 ```
