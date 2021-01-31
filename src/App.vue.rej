@@ -1,0 +1,10 @@
+diff a/src/App.vue b/src/App.vue	(rejected hunks)
+@@ -13 +13 @@
+-import Vue from 'vue';
++import Vue from "vue";
+@@ -15 +15 @@ import Vue from 'vue';
+-import Menu from '@/components/Menu.vue';
++import Menu from "@/components/Menu.vue";
+@@ -18 +18 @@ export default Vue.extend({
+-  components: { Menu },
++  components: { Menu }

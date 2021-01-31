@@ -96,8 +96,8 @@ export default Vue.extend({
   box-sizing: border-box;
   border-radius: 4px;
 
-  height: 16rem;
-  padding: 2rem 0;
+  padding: 2.5rem;
+  margin-bottom: 2rem;
 
   display: flex;
   flex-direction: column;
@@ -114,7 +114,6 @@ export default Vue.extend({
 .question-text {
   position: relative;
   width: 100%;
-  height: 2rem;
 
   text-align: center;
   letter-spacing: 0.4px;
@@ -158,20 +157,22 @@ export default Vue.extend({
 
 .decisions {
   font-size: 1.2rem;
-
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
+
+  width: 100%;
+
+  margin: 3rem 0;
 }
 
 .grade {
   display: flex;
-  flex-direction: column;
 
   justify-content: center;
   align-items: center;
 
-  margin: 0 1.5rem;
+  margin: 0.3rem 0;
 
   cursor: pointer;
 }
@@ -183,7 +184,36 @@ export default Vue.extend({
   height: 2rem;
   width: 2rem;
 
-  margin-bottom: 0.3rem;
+  margin: 0.5rem;
+}
+
+@media screen and (min-width: 992px) {
+  .question {
+    height: 16rem;
+    padding: 2rem;
+  }
+
+  .decisions {
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+  }
+
+  .grade {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    margin: 0 1rem;
+
+    cursor: pointer;
+  }
+
+  .radio-button {
+    margin-bottom: 0.3rem;
+  }
 }
 
 .agree,

@@ -1,0 +1,23 @@
+diff a/src/views/Result.vue b/src/views/Result.vue	(rejected hunks)
+@@ -51 +51 @@
+-import Vue from 'vue';
++import Vue from "vue";
+@@ -56 +56 @@ export default Vue.extend({
+-      return localStorage.getItem('mbti') || '';
++      return localStorage.getItem("mbti") || "";
+@@ -59 +59 @@ export default Vue.extend({
+-      return this.mbti.charAt(0) === 'I';
++      return this.mbti.charAt(0) === "I";
+@@ -62 +62 @@ export default Vue.extend({
+-      return this.mbti.charAt(1) === 'S';
++      return this.mbti.charAt(1) === "S";
+@@ -65 +65 @@ export default Vue.extend({
+-      return this.mbti.charAt(2) === 'T';
++      return this.mbti.charAt(2) === "T";
+@@ -68,3 +68,3 @@ export default Vue.extend({
+-      return this.mbti.charAt(3) === 'J';
+-    },
+-  },
++      return this.mbti.charAt(3) === "J";
++    }
++  }

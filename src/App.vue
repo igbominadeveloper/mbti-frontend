@@ -64,7 +64,7 @@ body {
 .page-container {
   width: 100%;
 
-  padding: 8rem 10rem;
+  padding: 5rem 2rem;
 }
 
 .error {
@@ -95,8 +95,15 @@ body {
 }
 
 @media screen and (min-width: 992px) {
+  .page-container {
+    width: 100%;
+
+    padding: 8rem 10rem;
+  }
+
   .questions {
-    width: 60%;
+    width: 70%;
+    padding: 0 1rem;
   }
 
   .email-input {
@@ -125,7 +132,7 @@ body {
   border: 1.3px solid #aaaaaa;
   border-radius: 4px;
 
-  width: 80%;
+  width: 100%;
 
   padding: 1rem 1.5rem;
   margin-bottom: 0.1rem;
@@ -151,12 +158,12 @@ input.error {
   border-radius: 4px;
 
   position: absolute;
-  right: -30rem;
-  top: 4rem;
+  right: 0;
+  bottom: 0;
 
   font-size: 12px;
 
-  padding: 10px;
+  padding: 5px;
 }
 .title {
   font-size: var(--font-title);
@@ -174,5 +181,26 @@ input.error {
   font-size: 1.4rem;
 
   font-weight: 600;
+}
+
+@media screen and (min-width: 1024px) {
+  .questions {
+    width: 60%;
+    padding: 0 1rem;
+  }
+
+  .error-block {
+    right: -30rem;
+    top: 4rem;
+    bottom: unset;
+
+    padding: 10px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .questions {
+    width: 55%;
+  }
 }
 </style>
