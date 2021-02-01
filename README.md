@@ -13,6 +13,8 @@ The Project is managed using [Pivotal Tracker](https://www.pivotaltracker.com/n/
 
 ## Project setup with Docker
 
+Ensure no other application is running on port `8080`
+
 ```
 clone the repository
 ```
@@ -22,6 +24,8 @@ Run the Docker build command
 ```
 docker-compose up -d
 ```
+
+Visit [localhost:8080](http://localhost:8080)
 
 ## Project setup without Docker
 
