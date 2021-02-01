@@ -18,31 +18,37 @@ clone the repository
 ```
 
 Run the Docker build command
+
 ```
-docker build -t mbti-frontend .
+docker-compose up -d
 ```
 
 ## Project setup without Docker
+
 ```
 yarn install
 ```
 
 ### Compiles and hot-reloads for development
+
 ```
 yarn serve
 ```
 
 ### Compiles and minifies for production
+
 ```
 yarn build
 ```
 
 ### Run your end-to-end tests
+
 ```
 yarn test:e2e
 ```
 
 ### Lints and fixes files
+
 ```
 yarn lint
 ```
